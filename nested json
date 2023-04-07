@@ -1,0 +1,59 @@
+import json
+
+def is_nested(json_data):
+    """
+    Checks if the given JSON data is nested or not.
+    Returns True if nested, False otherwise.
+    """
+    if isinstance(json_data, dict):
+        for value in json_data.values():
+            if isinstance(value, (dict, list)):
+                return True
+    elif isinstance(json_data, list):
+        for item in json_data:
+            if isinstance(item, (dict, list)):
+                return True
+    return False
+
+# Example usage
+json_data = '{"name": "John", "age": 30, "address": {"city": "New York", "state": "NY"}}'
+parsed_json = json.loads(json_data)
+
+if is_nested(parsed_json):
+    print("JSON is nested")
+else:
+    print("JSON is not nested")
+
+
+import json
+
+def find_nested(json_data):
+    """
+    Finds the nested part of the given JSON data, if it exists.
+    Returns the nested part as a dictionary, or None if there is no nested part.
+    """
+    if isinstance(json_data, dict):
+        for value in json_data.values():
+            if isinstance(value, dict):
+                return value
+            elif isinstance(value, list):
+                for item in value:
+                    nested = find_nested(item)
+                    if nested is not None:
+                        return nested
+    elif isinstance(json_data, list):
+        for item in json_data:
+            nested = find_nested(item)
+            if nested is not None:
+                return nested
+    return None
+
+# Example usage
+json_data = '{"name": "John", "age": 30, "address": {"city": "New York", "state": "NY"}}'
+parsed_json = json.loads(json_data)
+
+nested_part = find_nested(parsed_json)
+if nested_part is not None:
+    print("Nested part: ", nested_part)
+else:
+    print("No nested part found.")

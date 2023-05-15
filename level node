@@ -1,0 +1,62 @@
+json_list = [
+    {
+        'parent_path': '/',
+        'path': '/data/',
+        'is_leaf': False,
+        'attributes': {},
+        'values': {},
+        'tag': 'data'
+    },
+    {
+        'parent_path': '/data/',
+        'path': '/data/sharedrootdetails/',
+        'is_leaf': False,
+        'attributes': {'id': 123},
+        'values': {'sharedrootdetails': '05-c'},
+        'tag': 'sharedrootdetails'
+    },
+    {
+        'parent_path': '/data/sharedrootdetails/',
+        'path': '/data/sharedrootdetails/quotee/',
+        'is_leaf': True,
+        'attributes': {'id': 456},
+        'values': {'quotee': '05-d'},
+        'tag': 'quotee'
+    },
+    {
+        'parent_path': '/data/',
+        'path': '/data/rootdetails/',
+        'is_leaf': True,
+        'attributes': {'id': 456},
+        'values': {'rootdetails': '05-e'},
+        'tag': 'rootdetails'
+    },
+    {
+        'parent_path': '/data/',
+        'path': '/data/leafdetails/',
+        'is_leaf': True,
+        'attributes': {'id': 456},
+        'values': {'leafdetails': '05-e'},
+        'tag': 'leafdetails'
+    }
+]
+
+level_dict = {}
+
+for json_obj in json_list:
+    path = json_obj['path']
+    is_leaf = json_obj['is_leaf']
+
+    if is_leaf:
+        parent_path = json_obj['parent_path']
+        siblings = [obj for obj in json_list if obj['parent_path'] == parent_path and obj['is_leaf']]
+        current_level = 1
+        if len(siblings) > 1:
+            level = current_level + 1
+        else:
+            level = current_level
+
+        level_dict[path] = level
+
+
+print(level_dict)

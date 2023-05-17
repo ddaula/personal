@@ -1,7 +1,7 @@
 import re
 
 def extract_strings(input_string):
-    # Extracts everything before "-Dharmesh-Input_XML-"
+    # Extracts everything before "-Dharmesh-Input_XML-" excluding the file extension
     pattern1 = r'^(.*)-Dharmesh-Input_XML-'
     match1 = re.search(pattern1, input_string)
     if match1:
@@ -9,8 +9,8 @@ def extract_strings(input_string):
     else:
         before_string = None
 
-    # Extracts everything after "-Dharmesh-Input_XML-"
-    pattern2 = r'-Dharmesh-Input_XML-(.*)$'
+    # Extracts everything after "-Dharmesh-Input_XML-" excluding the file extension
+    pattern2 = r'-Dharmesh-Input_XML-(.*?)\..*$'
     match2 = re.search(pattern2, input_string)
     if match2:
         after_string = match2.group(1)
@@ -20,7 +20,7 @@ def extract_strings(input_string):
     return before_string, after_string
 
 # Example usage
-input_string = "ab-cd-ef-gh-Dharmesh-Input_XML-1676470922789"
+input_string = "ab-cd-ef-gh-Dharmesh-Input_XML-1676470922789.txt"
 before, after = extract_strings(input_string)
 print(before)  # Output: ab-cd-ef-gh
 print(after)  # Output: 1676470922789

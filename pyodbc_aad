@@ -1,0 +1,16 @@
+import pyodbc
+server_name = '<your-server-name>.database.windows.net'
+database_name = '<your-database-name>'
+username = '<your-username>'
+password = '<your-password>'
+conn_string = (
+    f'DRIVER=ODBC Driver 17 for SQL Server;'
+    f'SERVER={server_name};'
+    f'DATABASE={database_name};'
+    f'Trusted_Connection=yes;'
+    f'Authentication=ActiveDirectoryIntegrated;'
+    f'UID={username};'
+    f'PWD={password}'
+)
+conn = pyodbc.connect(conn_string)
+cursor = conn.cursor()
